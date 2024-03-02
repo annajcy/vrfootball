@@ -7,10 +7,14 @@ using UnityEngine.Serialization;
 public class MiniGameController : MonoBehaviour
 {
     public Transform respawnTransform;
+    public Transform ballTransform;
     public GameObject ball;
     public MiniKickScoreCanvas miniKickScoreCanvas;
-    public DetectScore detectScore;
+
+
     private int score = 0;
+    private int level = 1;
+
 
     public void BallRespawn()
     {
@@ -24,7 +28,7 @@ public class MiniGameController : MonoBehaviour
 
     void Start()
     {
-        detectScore.onBallScored += OnBallScored;
+        EventManager.Instance().AddEventListener("OnBallScored", OnBallScored);
         miniKickScoreCanvas.scoreText.text = score.ToString();
     }
 
@@ -36,6 +40,6 @@ public class MiniGameController : MonoBehaviour
 
     private void OnDestroy()
     {
-        detectScore.onBallScored -= OnBallScored;
+        EventManager.Instance().RemoveEventListener("OnBallScored", OnBallScored);
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class DetectScore : MonoBehaviour
 {
-    public UnityAction onBallScored;
     private bool IsOnLeft(Vector3 a, Vector3 b)
     {
         a.y = 0;
@@ -18,6 +17,6 @@ public class DetectScore : MonoBehaviour
     {
         if (other.gameObject.name != "ballMesh") return;
         if (IsOnLeft(this.transform.forward, other.gameObject.transform.position - this.transform.position))
-            onBallScored?.Invoke();
+            EventManager.Instance().EventTrigger("OnBallScored");
     }
 }
