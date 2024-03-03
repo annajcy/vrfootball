@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MiniKickScoreCanvas : BaseCanvas
 {
+    public TextMeshProUGUI requiredScoreText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI levelText;
 }

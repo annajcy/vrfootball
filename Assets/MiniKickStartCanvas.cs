@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniKickQuitCanvas : BaseCanvas
+public class MiniKickStartCanvas : BaseCanvas
 {
-
+    public Button btnStart;
 }

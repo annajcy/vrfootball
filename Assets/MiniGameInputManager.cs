@@ -3,23 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class MiniGameInputManager : MonoBehaviour
 {
-    public InputActionReference resetGame;
+    public InputActionReference pauseGame;
+    public InputActionReference respawnBall;
     public MiniGameController miniGameController;
     void Start()
     {
-        resetGame.action.started += OnGameReset;
+        pauseGame.action.started += OnGamePause;
     }
 
-    private void OnGameReset(InputAction.CallbackContext obj)
+    private void OnGamePause(InputAction.CallbackContext obj)
     {
-        miniGameController.ResetGame();
+        miniGameController.OnGamePauseClicked();
     }
 
     private void OnDestroy()
     {
-        resetGame.action.started -= OnGameReset;
+        pauseGame.action.started -= OnGamePause;
     }
 }

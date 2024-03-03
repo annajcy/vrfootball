@@ -1556,7 +1556,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ResetMiniGame",
+                    "name": "PauseMiniGame",
                     "type": "Button",
                     "id": "c8e48edb-78fc-4da3-9efa-eb0b10f3e336",
                     "expectedControlType": "Button",
@@ -1584,7 +1584,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ResetMiniGame",
+                    "action": "PauseMiniGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
