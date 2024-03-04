@@ -57,11 +57,31 @@ public class MiniGameController : MonoBehaviour
 
         miniKickPauseCanvas.btnQuit.onClick.AddListener(OnQuitGameClicked);
         miniKickPauseCanvas.btnResume.onClick.AddListener(OnGameResumeClicked);
+        miniKickPauseCanvas.btnRetry.onClick.AddListener(OnRetryClicked);
+    }
+
+    void InitAllUI()
+    {
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
+    }
+
+    void HideAllUI()
+    {
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickStartCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
     }
 
     void Start()
     {
         Respawn();
+        InitAllUI();
         UpdateGameInfo();
         UpdateAllUI();
         Pause();
@@ -75,23 +95,25 @@ public class MiniGameController : MonoBehaviour
         if (timeRemaining <= 0)
         {
             timeRemaining = 0;
+            CanvasManager.Instance().Get<MiniKickContinueCanvas>().Show();
+            CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
+            CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+            CanvasManager.Instance().Get<MiniKickTimeCanvas>().Show();
+            CanvasManager.Instance().Get<MiniKickScoreCanvas>().Show();
             Pause();
             var nowState = GetTimerUpState();
             if (nowState == LevelCheckState.PASS)
             {
-                CanvasManager.Instance().Get<MiniKickContinueCanvas>().Show();
-                miniKickContinueCanvas.textTitle.text = "通过level " + (level - 1).ToString() + " !";
+                miniKickContinueCanvas.textTitle.text = "通过level " + level;
             }
             else if (nowState == LevelCheckState.FAILED)
             {
-                CanvasManager.Instance().Get<MiniKickContinueCanvas>().Show();
-                miniKickContinueCanvas.textTitle.text = "未能通过level " + (level - 1).ToString();
+                miniKickContinueCanvas.textTitle.text = "未能通过level " + level;
                 miniKickContinueCanvas.btnContinue.gameObject.SetActive(false);
             }
             else if (nowState == LevelCheckState.MAXED)
             {
-                CanvasManager.Instance().Get<MiniKickContinueCanvas>().Show();
-                miniKickContinueCanvas.textTitle.text = "已经完全通关, 得分是: " + score.ToString();
+                miniKickContinueCanvas.textTitle.text = "已经完全通关, 得分是: " + score;
                 miniKickContinueCanvas.btnContinue.gameObject.SetActive(false);
             }
         }
@@ -109,6 +131,7 @@ public class MiniGameController : MonoBehaviour
 
         miniKickPauseCanvas.btnQuit.onClick.RemoveListener(OnQuitGameClicked);
         miniKickPauseCanvas.btnResume.onClick.RemoveListener(OnGameResumeClicked);
+        miniKickPauseCanvas.btnRetry.onClick.RemoveListener(OnRetryClicked);
     }
 
     public void Pause()
@@ -134,13 +157,22 @@ public class MiniGameController : MonoBehaviour
 
     public void OnGamePauseClicked()
     {
+        if (state == MiniGameState.PAUSE) return;
+        CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
         CanvasManager.Instance().Get<MiniKickPauseCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Show();
         Pause();
     }
 
     private void OnGameResumeClicked()
     {
+        CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
         CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Show();
         Resume();
     }
 
@@ -151,7 +183,11 @@ public class MiniGameController : MonoBehaviour
         Respawn();
         UpdateGameInfo();
         UpdateAllUI();
+        CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
         CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Show();
         Resume();
     }
 
@@ -163,6 +199,10 @@ public class MiniGameController : MonoBehaviour
         UpdateGameInfo();
         UpdateAllUI();
         CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Show();
         Resume();
     }
 
@@ -173,6 +213,10 @@ public class MiniGameController : MonoBehaviour
         UpdateGameInfo();
         UpdateAllUI();
         CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Show();
         Resume();
     }
 
@@ -186,6 +230,8 @@ public class MiniGameController : MonoBehaviour
         CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
         CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
         CanvasManager.Instance().Get<MiniKickStartCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickTimeCanvas>().Hide();
+        CanvasManager.Instance().Get<MiniKickScoreCanvas>().Hide();
         Pause();
     }
 

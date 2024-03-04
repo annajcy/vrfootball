@@ -7,8 +7,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class WindowFollow : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private float followSpeed = 10f;
+    public Transform target;
+    public float followSpeed = 10f;
 
     void Update()
     {

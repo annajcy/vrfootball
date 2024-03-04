@@ -13,6 +13,12 @@ public class MiniGameInputManager : MonoBehaviour
     void Start()
     {
         pauseGame.action.started += OnGamePause;
+        respawnBall.action.started += OnBallRespawn;
+    }
+
+    private void OnBallRespawn(InputAction.CallbackContext obj)
+    {
+        miniGameController.BallRespawn();
     }
 
     private void OnGamePause(InputAction.CallbackContext obj)
@@ -23,5 +29,6 @@ public class MiniGameInputManager : MonoBehaviour
     private void OnDestroy()
     {
         pauseGame.action.started -= OnGamePause;
+        respawnBall.action.started -= OnBallRespawn;
     }
 }

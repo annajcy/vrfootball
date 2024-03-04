@@ -8,12 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MiniKickPauseCanvas : BaseCanvas
 {
+    public Button btnRetry;
     public Button btnQuit;
     public Button btnResume;
-
-    private void Start()
-    {
-        CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
-    }
-
 }

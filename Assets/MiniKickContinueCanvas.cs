@@ -11,9 +11,4 @@ public class MiniKickContinueCanvas : BaseCanvas
     public Button btnContinue;
     public Button btnRetry;
     public Button btnQuit;
-
-    private void Start()
-    {
-        CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
-    }
 }

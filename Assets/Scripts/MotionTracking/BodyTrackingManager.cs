@@ -164,6 +164,7 @@ public class BodyTrackingManager : MonoBehaviour
         Avatar.SetActive(true);
         CanvasManager.Instance().Get<BodyTrackerSettingCanvas>().Show();
         CanvasManager.Instance().Get<GameSelectCanvas>().Show();
+        CanvasManager.Instance().Get<MiniKickStartCanvas>().Show();
         CurrentLegTrackingDemoState = LegTrackingDemoState.PLAYING;
 
         Debug.Log($"BodyTrackingManager.LoadAvatar: Avatar = {avatarObj.name}, height = {height}");
@@ -201,6 +202,7 @@ public class BodyTrackingManager : MonoBehaviour
             CanvasManager.Instance().Get<TrainSelectCanvas>().Hide();
             CanvasManager.Instance().Get<GameSelectCanvas>().Hide();
             CanvasManager.Instance().Get<BodyTrackerSettingCanvas>().Hide();
+            CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
 
             var startupCanvas = CanvasManager.Instance().Get<StartupCanvas>();
             startupCanvas.Show();

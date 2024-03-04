@@ -1543,7 +1543,7 @@
             ]
         },
         {
-            "name": "UI",
+            "name": "MiniGame",
             "id": "60779443-d884-4367-b45e-0b56023e3a7f",
             "actions": [
                 {
@@ -1563,13 +1563,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RespawnBall",
+                    "type": "Button",
+                    "id": "6dfe9cd1-341c-4209-bc44-fe4fc93876e3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "949aaeca-021d-4bc7-9096-7105b5feb515",
-                    "path": "<PXR_Controller>{RightHand}/{PrimaryButton}",
+                    "path": "<PXR_Controller>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1580,11 +1589,22 @@
                 {
                     "name": "",
                     "id": "bffea60c-ecc1-4cc2-b5ad-60bd21453cc1",
-                    "path": "<PXR_Controller>{RightHand}/secondaryButton",
+                    "path": "<PXR_Controller>{LeftHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "PauseMiniGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11ae57c8-5588-472d-8c70-537d9862d008",
+                    "path": "<PXR_Controller>{LeftHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RespawnBall",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
