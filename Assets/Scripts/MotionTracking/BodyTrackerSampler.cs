@@ -81,7 +81,7 @@ public class BodyTrackerSampler : MonoBehaviour
                     m_JointRotation.w = (float) m_BodyTrackerResult.trackingdata[i].localpose.RotQw;
 
                     //BonesList[i].position = GetPosition(m_BodyTrackerResult.trackingdata[i]);
-                    // BonesList[i].rotation = rotation;
+                    //BonesList[i].rotation = rotation;
 
                     BonesList[i].rotation = m_JointRotation * _startRotationDic[i];
                     _joints[i].TrackingData = m_BodyTrackerResult.trackingdata[i];

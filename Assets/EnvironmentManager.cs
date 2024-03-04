@@ -9,7 +9,6 @@ public enum ActiveEnvironment
     STADIUM,
 }
 
-
 public class EnvironmentManager : MonoBehaviour
 {
     public static EnvironmentManager Instance;

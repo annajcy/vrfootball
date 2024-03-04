@@ -41,7 +41,6 @@ public class BodyTrackingManager : MonoBehaviour
     private bool swiftCalibratedState;
     private float avatarScale;
 
-
     private void Awake()
     {
         Instance = this;

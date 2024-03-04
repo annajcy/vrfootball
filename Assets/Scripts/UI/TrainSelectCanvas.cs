@@ -10,6 +10,7 @@ public class TrainSelectCanvas : BaseCanvas
     public Button btnPenalty;
     public Button btnBack;
     public Button btnPass;
+    public Button btnMainMenu;
 
     protected override void Awake()
     {
@@ -17,6 +18,12 @@ public class TrainSelectCanvas : BaseCanvas
         btnPenalty.onClick.AddListener(Penalty);
         btnPass.onClick.AddListener(Pass);
         btnBack.onClick.AddListener(Back);
+        btnMainMenu.onClick.AddListener(MainMenu);
+    }
+
+    private void MainMenu()
+    {
+        
     }
 
     private void Start()
