@@ -21,6 +21,8 @@ public enum LevelCheckState
 
 public class MiniGameController : MonoBehaviour
 {
+    public static MiniGameController Instance;
+
     public Transform ballRespawnTransform;
     public Transform goalnetRespawnTransform;
     public Transform ballTransform;
@@ -47,6 +49,8 @@ public class MiniGameController : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         InitDictionary();
         EventManager.Instance().AddEventListener("OnBallScored", OnBallScored);
 

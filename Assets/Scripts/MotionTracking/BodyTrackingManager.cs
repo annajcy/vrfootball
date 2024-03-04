@@ -45,7 +45,6 @@ public class BodyTrackingManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
         initXROriginY = startXROriginY = XROrigin.transform.localPosition.y;
         CoreService.Initialize();
     }

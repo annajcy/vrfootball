@@ -9,18 +9,14 @@ public class TrainSelectCanvas : BaseCanvas
 {
     public Button btnPenalty;
     public Button btnBack;
+    public Button btnPass;
 
     protected override void Awake()
     {
         base.Awake();
-        btnPenalty.onClick.AddListener(() =>
-        {
-
-        });
-        btnBack.onClick.AddListener(() =>
-        {
-            CanvasManager.Instance().Get<TrainSelectCanvas>().Hide();
-        });
+        btnPenalty.onClick.AddListener(Penalty);
+        btnPass.onClick.AddListener(Pass);
+        btnBack.onClick.AddListener(Back);
     }
 
     private void Start()
@@ -31,7 +27,24 @@ public class TrainSelectCanvas : BaseCanvas
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        btnBack.onClick.RemoveAllListeners();
-        btnPenalty.onClick.RemoveAllListeners();
+        btnBack.onClick.RemoveListener(Back);
+        btnPenalty.onClick.RemoveListener(Penalty);
+        btnPass.onClick.RemoveListener(Pass);
+    }
+
+    private void Penalty()
+    {
+        EnvironmentManager.Instance.SetActiveEnvironment(ActiveEnvironment.STADIUM);
+        MiniGameController.Instance.gameObject.SetActive(false);
+    }
+
+    private void Pass()
+    {
+
+    }
+
+    private void Back()
+    {
+        CanvasManager.Instance().Get<TrainSelectCanvas>().Hide();
     }
 }
