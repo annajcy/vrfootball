@@ -18,7 +18,7 @@ public class GoalMove : MonoBehaviour
     {
         if (!isEnabled) return;
         if (goalMovement == null) return;
-
+        Debug.Log("Move");
         if (index + 1 > goalMovement.coordinates.Count) index = 0;
 
         start = goalMovement.coordinates[index];

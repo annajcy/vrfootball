@@ -17,6 +17,7 @@ public class BodyTrackingManager : MonoBehaviour
         PLAYING
     }
 
+    public MiniGameController miniGameController;
     public static BodyTrackingManager Instance;
     private static List<XRInputSubsystem> inputSubsystems = new();
 
@@ -199,10 +200,16 @@ public class BodyTrackingManager : MonoBehaviour
                 trackingState = 0;
 #endif
 
+            miniGameController.GameQuit();
+
             CanvasManager.Instance().Get<TrainSelectCanvas>().Hide();
             CanvasManager.Instance().Get<GameSelectCanvas>().Hide();
             CanvasManager.Instance().Get<BodyTrackerSettingCanvas>().Hide();
             CanvasManager.Instance().Get<MiniKickStartCanvas>().Hide();
+            CanvasManager.Instance().Get<MiniKickScoreCanvas>().Hide();
+            CanvasManager.Instance().Get<MiniKickTimeCanvas>().Hide();
+            CanvasManager.Instance().Get<MiniKickPauseCanvas>().Hide();
+            CanvasManager.Instance().Get<MiniKickContinueCanvas>().Hide();
 
             var startupCanvas = CanvasManager.Instance().Get<StartupCanvas>();
             startupCanvas.Show();

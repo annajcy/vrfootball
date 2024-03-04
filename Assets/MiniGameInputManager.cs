@@ -23,7 +23,7 @@ public class MiniGameInputManager : MonoBehaviour
 
     private void OnGamePause(InputAction.CallbackContext obj)
     {
-        miniGameController.OnGamePauseClicked();
+        miniGameController.GamePause();
     }
 
     private void OnDestroy()
