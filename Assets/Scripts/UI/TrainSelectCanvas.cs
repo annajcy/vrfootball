@@ -41,7 +41,7 @@ public class TrainSelectCanvas : BaseCanvas
 
     private void Penalty()
     {
-        EnvironmentManager.Instance.SetActiveEnvironment(ActiveEnvironment.STADIUM);
+        EnvironmentManager.Instance.SetActiveEnvironment(EActiveEnvironment.STADIUM);
         MiniGameController.Instance.gameObject.SetActive(false);
     }
 

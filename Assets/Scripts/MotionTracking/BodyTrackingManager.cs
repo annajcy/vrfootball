@@ -7,16 +7,16 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
 
+public enum ELegTrackingDemoState
+{
+    START,
+    CALIBRATING,
+    CALIBRATED,
+    PLAYING
+}
+
 public class BodyTrackingManager : MonoBehaviour
 {
-    public enum LegTrackingDemoState
-    {
-        START,
-        CALIBRATING,
-        CALIBRATED,
-        PLAYING
-    }
-
     public MiniGameController miniGameController;
     public static BodyTrackingManager Instance;
     private static List<XRInputSubsystem> inputSubsystems = new();
@@ -24,7 +24,7 @@ public class BodyTrackingManager : MonoBehaviour
     public GameObject XROrigin;
     public GameObject Avatar;
 
-    [HideInInspector] public LegTrackingDemoState CurrentLegTrackingDemoState;
+    [HideInInspector] public ELegTrackingDemoState CurrentLegTrackingDemoState;
     private BodyTrackerSampler bodyTrackerSampler;
     private float startFootHeight;
     private float startXROriginY;
@@ -71,7 +71,7 @@ public class BodyTrackingManager : MonoBehaviour
 
     private void StartGame(float height)
     {
-        CurrentLegTrackingDemoState = LegTrackingDemoState.CALIBRATED;
+        CurrentLegTrackingDemoState = ELegTrackingDemoState.CALIBRATED;
 
         var xrOriginPos = XROrigin.transform.localPosition;
         xrOriginPos.y = startXROriginY = initXROriginY;
@@ -164,7 +164,7 @@ public class BodyTrackingManager : MonoBehaviour
         CanvasManager.Instance().Get<BodyTrackerSettingCanvas>().Show();
         CanvasManager.Instance().Get<GameSelectCanvas>().Show();
         CanvasManager.Instance().Get<MiniKickStartCanvas>().Show();
-        CurrentLegTrackingDemoState = LegTrackingDemoState.PLAYING;
+        CurrentLegTrackingDemoState = ELegTrackingDemoState.PLAYING;
 
         Debug.Log($"BodyTrackingManager.LoadAvatar: Avatar = {avatarObj.name}, height = {height}");
     }
@@ -194,8 +194,8 @@ public class BodyTrackingManager : MonoBehaviour
             var trackingState = PXR_Input.GetBodyTrackingPose(0, ref bodyTrackerResult);
 
 #if UNITY_EDITOR
-                connectState.num = 2;
-                trackingState = 0;
+            connectState.num = 2;
+            trackingState = 0;
 #endif
 
             miniGameController.GameQuit();

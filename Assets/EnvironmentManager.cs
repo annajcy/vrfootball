@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActiveEnvironment
+public enum EActiveEnvironment
 {
     STARTUP,
     STADIUM,
@@ -20,9 +20,9 @@ public class EnvironmentManager : MonoBehaviour
         Instance = this;
     }
 
-    public void SetActiveEnvironment(ActiveEnvironment environment)
+    public void SetActiveEnvironment(EActiveEnvironment environment)
     {
-        if (environment == ActiveEnvironment.STADIUM)
+        if (environment == EActiveEnvironment.STADIUM)
         {
             startup.SetActive(false);
             stadium.SetActive(true);
