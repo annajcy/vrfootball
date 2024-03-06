@@ -22,7 +22,7 @@ public class StartupCanvas : BaseCanvas
             CanvasManager.Instance().Get<StartupCanvas>().Hide();
             PXR_Input.OpenFitnessBandCalibrationAPP();
             BodyTrackingManager.Instance.CurrentLegTrackingDemoState =
-                BodyTrackingManager.LegTrackingDemoState.CALIBRATING;
+                ELegTrackingDemoState.CALIBRATING;
         });
         btnExit.onClick.AddListener(Application.Quit);
     }

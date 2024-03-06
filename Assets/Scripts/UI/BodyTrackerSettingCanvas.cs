@@ -16,7 +16,7 @@ public class BodyTrackerSettingCanvas : BaseCanvas
         btnCalibration.onClick.AddListener(() =>
         {
             PXR_Input.OpenFitnessBandCalibrationAPP();
-            BodyTrackingManager.Instance.CurrentLegTrackingDemoState = BodyTrackingManager.LegTrackingDemoState.CALIBRATING;
+            BodyTrackingManager.Instance.CurrentLegTrackingDemoState = ELegTrackingDemoState.CALIBRATING;
             BodyTrackingManager.Instance.HideAvatar();
         });
         btnAlignGround.onClick.AddListener(() =>
