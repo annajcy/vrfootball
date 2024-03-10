@@ -8,5 +8,9 @@ public interface IAIObject
     public void Attack();
     public void ChangeAction(EAction action);
 
+    public Vector3 nowPos { get; }
+
+    public Vector3 targetPos { get; }
+
 
 }

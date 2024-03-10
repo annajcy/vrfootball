@@ -7,18 +7,20 @@ public class ChaseState : BaseState
     {
     }
 
+    public override EState AIState => EState.Chase;
+
     public override void OnEnter()
     {
-        throw new NotImplementedException();
+
     }
 
     public override void OnQuit()
     {
-        throw new NotImplementedException();
+
     }
 
     public override void OnUpdate()
     {
-        throw new NotImplementedException();
+
     }
 }
