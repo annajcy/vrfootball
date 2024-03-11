@@ -1,9 +1,16 @@
 using System;
 using UnityEngine;
 
-abstract public class BaseState
+public abstract class BaseState
 {
+    public BaseState() { }
+
     public BaseState(StateMachine stateMachine)
+    {
+        this.stateMachine = stateMachine;
+    }
+
+    public void Init(StateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
     }

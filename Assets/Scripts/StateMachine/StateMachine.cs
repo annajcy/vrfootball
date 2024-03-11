@@ -10,17 +10,27 @@ public class StateMachine
     }
 
     public IAIObject aiObject;
-    private Dictionary<EState, BaseState> states = new Dictionary<EState, BaseState>();
-    private BaseState nowState;
-    
-    public void ChangeState(EState state)
+    private Dictionary<string, BaseState> states = new Dictionary<string, BaseState>();
+    private string nowStateName;
+    public BaseState nowState => states[nowStateName];
+
+    public void AddState<T>() where T : BaseState, new()
     {
+        string name = typeof(T).Name;
+        var state = new T();
+        state.Init(this);
+        states.Add(name, state);
+    }
+    
+    public void ChangeState<T>()
+    {
+        string name = typeof(T).Name;
         nowState?.OnQuit();
 
-        if (states.ContainsKey(state))
+        if (states.ContainsKey(name))
         {
-            nowState = states[state];
-            nowState.OnEnter();
+            nowStateName = name;
+            nowState?.OnEnter();
         }
     }
 

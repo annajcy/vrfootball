@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 public enum EState
 {
     Sleep,
@@ -5,5 +8,4 @@ public enum EState
     Run,
     Chase,
     Alert
-    
 }

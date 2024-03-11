@@ -43,6 +43,11 @@ public class PatrolState : BaseState
         isChangePos = true;
     }
 
+    public PatrolState()
+    {
+
+    }
+
     public override EState AIState => EState.Patrol;
 
     public override void OnEnter()
@@ -111,7 +116,7 @@ public class PatrolState : BaseState
 
         if (Vector3.Distance(stateMachine.aiObject.nowPos, stateMachine.aiObject.targetPos) < checkDis)
         {
-            stateMachine.aiObject.ChangeAction(EAction.Chase);
+            stateMachine.ChangeState<ChaseState>();
         }
 
     }

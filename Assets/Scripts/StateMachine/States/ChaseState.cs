@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class ChaseState : BaseState
 {
-    public ChaseState(StateMachine stateMachine) : base(stateMachine)
-    {
-    }
+    public ChaseState() {}
+
+    public ChaseState(StateMachine stateMachine) : base(stateMachine) { }
 
     public override EState AIState => EState.Chase;
 
