@@ -4,39 +4,39 @@ using UnityEngine;
 
 public class StateMachine
 {
-    public StateMachine(IAIObject aiObject)
-    {
-        this.aiObject = aiObject;
-    }
-
-    public IAIObject aiObject;
-    private Dictionary<string, BaseState> states = new Dictionary<string, BaseState>();
+    public StateMachine() { }
+    private Dictionary<string, BaseState> stateDict = new Dictionary<string, BaseState>();
     private string nowStateName;
-    public BaseState nowState => states[nowStateName];
+
+    private BaseState nowState()
+    {
+        if (nowStateName == null) return null;
+        return stateDict[nowStateName];
+    }
 
     public void AddState<T>() where T : BaseState, new()
     {
         string name = typeof(T).Name;
         var state = new T();
         state.Init(this);
-        states.Add(name, state);
+        stateDict.Add(name, state);
     }
     
     public void ChangeState<T>()
     {
         string name = typeof(T).Name;
-        nowState?.OnQuit();
+        nowState()?.OnQuit();
 
-        if (states.ContainsKey(name))
+        if (stateDict.ContainsKey(name))
         {
             nowStateName = name;
-            nowState?.OnEnter();
+            nowState()?.OnEnter();
         }
     }
 
     public void UpdateState()
     {
-        nowState?.OnUpdate();
+        nowState()?.OnUpdate();
     }
 
 }

@@ -1,43 +1,26 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
+[RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
 public class BaseCanvas : MonoBehaviour
 {
-    private GameObject display;
-    protected virtual void Awake()
-    {
-        CanvasManager.Instance().Add(this);
-        display = GetComponentInChildren<VerticalLayoutGroup>().gameObject;
-    }
+    public bool IsActive => gameObject.activeSelf;
 
-    protected virtual void OnDestroy()
+    public void Show()
     {
-        CanvasManager.Instance().Remove(this);
+        gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        display.SetActive(false);
+        gameObject.SetActive(false);
     }
 
-    public bool IsActive()
+    public void Toggle()
     {
-        return display.activeSelf;
-    }
-
-    public void ToggleState()
-    {
-        if (IsActive()) Hide();
-        else Show();
-    }
-
-    public void Show()
-    {
-        display.SetActive(true);
+        gameObject.SetActive(!IsActive);
     }
 }

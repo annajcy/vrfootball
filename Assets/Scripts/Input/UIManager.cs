@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     private void OnUIToggled(InputAction.CallbackContext obj)
     {
-       CanvasManager.Instance().ToggleAllUI();
+       //CanvasSet.Instance().ToggleAllUI();
     }
 
     private void OnDestroy()
