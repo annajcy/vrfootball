@@ -8,7 +8,7 @@ public class StateMachine
     private Dictionary<string, BaseState> stateDict = new Dictionary<string, BaseState>();
     private string nowStateName;
 
-    private BaseState nowState()
+    private BaseState GetNowState()
     {
         if (nowStateName == null) return null;
         return stateDict[nowStateName];
@@ -25,18 +25,18 @@ public class StateMachine
     public void ChangeState<T>()
     {
         string name = typeof(T).Name;
-        nowState()?.OnQuit();
+        GetNowState()?.OnQuit();
 
         if (stateDict.ContainsKey(name))
         {
             nowStateName = name;
-            nowState()?.OnEnter();
+            GetNowState()?.OnEnter();
         }
     }
 
     public void UpdateState()
     {
-        nowState()?.OnUpdate();
+        GetNowState()?.OnUpdate();
     }
 
 }

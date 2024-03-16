@@ -3,19 +3,13 @@ using UnityEngine;
 
 public abstract class BaseState
 {
+    protected StateMachine stateMachine;
     public BaseState() { }
 
-    public BaseState(StateMachine stateMachine)
+    public virtual void Init(StateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
     }
-
-    public void Init(StateMachine stateMachine)
-    {
-        this.stateMachine = stateMachine;
-    }
-    
-    protected StateMachine stateMachine;
 
     public abstract void OnEnter();
     public abstract void OnUpdate();
