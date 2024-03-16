@@ -15,6 +15,13 @@ public class BodyTrackerCalibratingCanvas : BaseCanvas
         exitBtn.onClick.AddListener(OnExitButtonClicked);
     }
 
+    private void OnDestroy()
+    {
+        skipCalibrationBtn.onClick.RemoveListener(OnSkipCalibrationButtonClicked);
+        calibrateBtn.onClick.RemoveListener(OnCalibratedButtonClicked);
+        exitBtn.onClick.RemoveListener(OnExitButtonClicked);
+    }
+
     private void OnCalibratedButtonClicked()
     {
         BodyTrackerManager.Instance().stateMachine.ChangeState<BodyTrackerCalibratingState>();
@@ -30,10 +37,4 @@ public class BodyTrackerCalibratingCanvas : BaseCanvas
         Application.Quit();
     }
 
-    private void OnDestroy()
-    {
-        skipCalibrationBtn.onClick.RemoveListener(OnSkipCalibrationButtonClicked);
-        calibrateBtn.onClick.RemoveListener(OnCalibratedButtonClicked);
-        exitBtn.onClick.RemoveListener(OnExitButtonClicked);
-    }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class BodyTrackerPlayingState : BaseState
 {
-    private List<bool> defaultCanvasState = new List<bool>() { false, true, true, false };
+    private List<bool> defaultCanvasState = new List<bool>() { false, true, true, false, true };
 
     public override void OnEnter()
     {

@@ -17,6 +17,14 @@ public class BodyTrackerSettingCanvas : BaseCanvas
         exitBtn.onClick.AddListener(OnExitButtonClicked);
     }
 
+    private void OnDestroy()
+    {
+        showMirrorBtn.onClick.RemoveListener(OnShowMirrorButtonClicked);
+        alignGroundBtn.onClick.RemoveListener(OnAlignGroundButtonClicked);
+        recalibrateBtn.onClick.RemoveListener(OnRecalibratedButtonClicked);
+        exitBtn.onClick.RemoveListener(OnExitButtonClicked);
+    }
+
     private void OnShowMirrorButtonClicked()
     {
         CanvasSetManager.Instance().
@@ -40,11 +48,4 @@ public class BodyTrackerSettingCanvas : BaseCanvas
         Application.Quit();
     }
 
-    private void OnDestroy()
-    {
-        showMirrorBtn.onClick.RemoveListener(OnShowMirrorButtonClicked);
-        alignGroundBtn.onClick.RemoveListener(OnAlignGroundButtonClicked);
-        recalibrateBtn.onClick.RemoveListener(OnRecalibratedButtonClicked);
-        exitBtn.onClick.RemoveListener(OnExitButtonClicked);
-    }
 }

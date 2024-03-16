@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class LocomotionManager : MonoBehaviour
+public class LocomotionInputManager : MonoBehaviour
 {
     public float moveSpeed;
     public float rotateSpeed;

@@ -10,7 +10,6 @@ public class WindowInstantFollow : MonoBehaviour
 {
     public Transform target;
     public float followSpeed = 10f;
-    public bool isFollowRotation = true;
 
     private Transform start;
     private Transform end;

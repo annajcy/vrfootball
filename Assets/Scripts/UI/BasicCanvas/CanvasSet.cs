@@ -3,28 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CanvasSet : MonoBehaviour
 {
     public List<BaseCanvas> canvasList;
+    public List<BaseCanvas> hideAllExclusionList;
     public List<bool> defaultState;
+    public UnityEvent onShow;
+    public UnityEvent onHide;
 
     private Dictionary<string, int> canvasIndexDict;
     private List<bool> lastHiddenState;
-    private bool isHidden = false;
-
-    private List<bool> GetNowState()
-    {
-        List<bool> result = new List<bool>();
-        foreach (var canvas in canvasList)
-            result.Add(canvas.IsActive);
-        return result;
-    }
+    private bool isShow = true;
 
     protected virtual void Awake()
     {
         InitIndex();
         SetState(defaultState);
+    }
+
+    public bool IsShow()
+    {
+        return isShow;
+    }
+
+    private List<bool> GetNowState()
+    {
+        List<bool> result = new List<bool>();
+        foreach (var canvas in canvasList)
+            result.Add(canvas.IsActive());
+        return result;
     }
 
     public void SetState(List<bool> state)
@@ -36,26 +45,46 @@ public class CanvasSet : MonoBehaviour
         }
     }
 
-    public void RestoreAllCanvas()
+    public void ShowAllCanvas()
     {
-        if (!isHidden) return;
-        isHidden = false;
+        if (isShow) return;
+        onShow?.Invoke();
+        isShow = true;
         SetState(lastHiddenState);
     }
 
     public void HideAllCanvas()
     {
-        if (isHidden) return;
-        isHidden = true;
+        if (!isShow) return;
+        onHide?.Invoke();
+        isShow = false;
+        lastHiddenState = GetNowState();
+        foreach (var canvas in canvasList)
+            if (!hideAllExclusionList.Contains(canvas))
+                canvas.Hide();
+    }
+
+    public void ForceHideAllCanvas()
+    {
+        if (!isShow)
+        {
+            onHide?.Invoke();
+            foreach (var canvas in canvasList)
+                canvas.Hide();
+            return;
+        }
+
+        onHide?.Invoke();
+        isShow = false;
         lastHiddenState = GetNowState();
         foreach (var canvas in canvasList)
             canvas.Hide();
     }
 
-    public void ToggleAll()
+    public void ToggleAllCanvas()
     {
-        if (isHidden) RestoreAllCanvas();
-        else HideAllCanvas();
+        if (isShow) HideAllCanvas();
+        else ShowAllCanvas();
     }
 
     private void InitIndex()

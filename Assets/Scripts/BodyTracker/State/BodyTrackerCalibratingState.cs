@@ -7,7 +7,7 @@ public class BodyTrackerCalibratingState : BaseState
 {
     public override void OnEnter()
     {
-        CanvasSetManager.Instance().GetCanvasSet<BodyTrackerCanvasSet>().HideAllCanvas();
+        CanvasSetManager.Instance().GetCanvasSet<BodyTrackerCanvasSet>().ForceHideAllCanvas();
         BodyTrackerManager.Instance().Calibrate();
     }
 
@@ -15,7 +15,7 @@ public class BodyTrackerCalibratingState : BaseState
 
     public override void OnQuit()
     {
-        CanvasSetManager.Instance().GetCanvasSet<BodyTrackerCanvasSet>().RestoreAllCanvas();
+        CanvasSetManager.Instance().GetCanvasSet<BodyTrackerCanvasSet>().ShowAllCanvas();
     }
 
 }

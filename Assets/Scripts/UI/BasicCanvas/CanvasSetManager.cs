@@ -14,6 +14,11 @@ public class CanvasSetManager : SingletonMonoGameObject<CanvasSetManager>
         InitIndex();
     }
 
+    private void OnDestroy()
+    {
+        canvasSetList.Clear();
+    }
+
     private void InitIndex()
     {
         canvasSetIndexDict = new Dictionary<string, int>();
@@ -29,8 +34,4 @@ public class CanvasSetManager : SingletonMonoGameObject<CanvasSetManager>
         return null;
     }
 
-    private void OnDestroy()
-    {
-        canvasSetList.Clear();
-    }
 }

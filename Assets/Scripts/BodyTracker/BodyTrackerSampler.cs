@@ -5,21 +5,21 @@ using UnityEngine.Serialization;
 
 public class BodyTrackerSampler : MonoBehaviour
 {
-    public List<Transform> bonesList = new List<Transform>(new Transform[(int)BodyTrackerRole.ROLE_NUM]);
-    private Dictionary<int, Quaternion> rotationDict = new Dictionary<int, Quaternion>();
     public float soleHeight = 0.022f;
+    public List<Transform> bonesList = new List<Transform>(new Transform[(int)BodyTrackerRole.ROLE_NUM]);
     public float[] skeletonLens = new float[11];
 
-    [HideInInspector] public int LeftTouchGroundAction;
-    [HideInInspector] public int RightTouchGroundAction;
-    [HideInInspector] public int LeftToeTouchGroundAction;
-    [HideInInspector] public int RightToeTouchGroundAction;
-
+    private Dictionary<int, Quaternion> rotationDict = new Dictionary<int, Quaternion>();
     private BodyTrackerResult bodyTrackerResult;
     private double displayTime;
     private Vector3 hipJointPosition;
     private Quaternion jointRotation;
     private BodyTrackerJoint[] joints;
+
+    [HideInInspector] public int leftTouchGroundAction;
+    [HideInInspector] public int rightTouchGroundAction;
+    [HideInInspector] public int leftToeTouchGroundAction;
+    [HideInInspector] public int rightToeTouchGroundAction;
 
     private void Awake()
     {
@@ -56,7 +56,6 @@ public class BodyTrackerSampler : MonoBehaviour
                 bodyTrackerJoint = bonesList[i].gameObject.AddComponent<BodyTrackerJoint>();
                 bodyTrackerJoint.bodyTrackerRole = (BodyTrackerRole)i;
             }
-
             joints[i] = bodyTrackerJoint;
         }
     }
@@ -77,16 +76,16 @@ public class BodyTrackerSampler : MonoBehaviour
             if (bonesList[i] == null) continue;
             jointRotation = GetQuaternion(bodyTrackerResult.trackingdata[i]);
             bonesList[i].rotation = jointRotation * rotationDict[i];
-            joints[i].TrackingData = bodyTrackerResult.trackingdata[i];
+            joints[i].trackingData = bodyTrackerResult.trackingdata[i];
         }
     }
 
     private void UpdateFeetActions()
     {
-        LeftTouchGroundAction = (int)bodyTrackerResult.trackingdata[7].Action;
-        RightTouchGroundAction = (int)bodyTrackerResult.trackingdata[8].Action;
-        LeftToeTouchGroundAction = (int)bodyTrackerResult.trackingdata[10].Action;
-        RightToeTouchGroundAction = (int)bodyTrackerResult.trackingdata[11].Action;
+        leftTouchGroundAction = (int)bodyTrackerResult.trackingdata[7].Action;
+        rightTouchGroundAction = (int)bodyTrackerResult.trackingdata[8].Action;
+        leftToeTouchGroundAction = (int)bodyTrackerResult.trackingdata[10].Action;
+        rightToeTouchGroundAction = (int)bodyTrackerResult.trackingdata[11].Action;
     }
 
 
@@ -120,6 +119,23 @@ public class BodyTrackerSampler : MonoBehaviour
         int result = PXR_Input.SetBodyTrackingBoneLength(boneLength);
 
         Debug.Log($"BodyTrackerSampler.SetBonesLength: boneLength = {boneLength}, result = {result}");
+    }
+
+    private static Vector3 GetPosition(BodyTrackerTransform bodyTrackerTransform)
+    {
+        return new(
+            (float)bodyTrackerTransform.localpose.PosX,
+            (float)bodyTrackerTransform.localpose.PosY,
+            (float)bodyTrackerTransform.localpose.PosZ);
+    }
+
+    private static Quaternion GetQuaternion(BodyTrackerTransform bodyTrackerTransform)
+    {
+        return new(
+            (float)bodyTrackerTransform.localpose.RotQx,
+            (float)bodyTrackerTransform.localpose.RotQy,
+            (float)bodyTrackerTransform.localpose.RotQz,
+            (float)bodyTrackerTransform.localpose.RotQw);
     }
 
     [ContextMenu("AutoBindAvatarBones")]
@@ -198,25 +214,5 @@ public class BodyTrackerSampler : MonoBehaviour
         skeletonLens[8] = (bonesList[16].position - bonesList[18].position).magnitude; //UpperArmLen
         skeletonLens[9] = (bonesList[18].position - bonesList[20].position).magnitude; //LowerArmLen
         skeletonLens[10] = 0.169f; //HandLen
-
-        Debug.Log(
-            $"BodyTrackerSampler.FindBonesLength: NeckLen = {skeletonLens[1]}, TorsoLen = {skeletonLens[2]}, HipLen = {skeletonLens[3]}, UpperLegLen = {skeletonLens[4]}, LowerLegLen = {skeletonLens[5]}, FootLen = {skeletonLens[6]}, ShoulderLen = {skeletonLens[7]}, UpperArmLen = {skeletonLens[8]}, LowerArmLen = {skeletonLens[9]}");
-    }
-
-    public static Vector3 GetPosition(BodyTrackerTransform bodyTrackerTransform)
-    {
-        return new(
-            (float)bodyTrackerTransform.localpose.PosX,
-            (float)bodyTrackerTransform.localpose.PosY,
-            (float)bodyTrackerTransform.localpose.PosZ);
-    }
-
-    private static Quaternion GetQuaternion(BodyTrackerTransform bodyTrackerTransform)
-    {
-        return new(
-            (float)bodyTrackerTransform.localpose.RotQx,
-            (float)bodyTrackerTransform.localpose.RotQy,
-            (float)bodyTrackerTransform.localpose.RotQz,
-            (float)bodyTrackerTransform.localpose.RotQw);
     }
 }

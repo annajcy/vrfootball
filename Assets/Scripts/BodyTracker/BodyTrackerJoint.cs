@@ -4,5 +4,5 @@ using UnityEngine;
 public class BodyTrackerJoint : MonoBehaviour
 {
     public BodyTrackerRole bodyTrackerRole;
-    public BodyTrackerTransform TrackingData;
+    public BodyTrackerTransform trackingData;
 }

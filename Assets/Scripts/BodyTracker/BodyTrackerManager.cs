@@ -13,7 +13,6 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
     public GameObject avatar;
     public float height = 175;
 
-    private float avatarScale => height / 175;
     private static List<XRInputSubsystem> inputSubsystems = new();
     private BodyTrackerSampler bodyTrackerSampler;
     private float startFootHeight;
@@ -22,14 +21,6 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
     private Transform avatarRightFoot;
     private Transform avatarLeftFoot;
     public StateMachine stateMachine;
-
-    private void InitStateMachine()
-    {
-        stateMachine = new StateMachine();
-        stateMachine.AddState<BodyTrackerCalibratingState>();
-        stateMachine.AddState<BodyTrackerPlayingState>();
-        stateMachine.AddState<BodyTrackerUncalibratedState>();
-    }
 
     protected override void Awake()
     {
@@ -61,12 +52,20 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
             UpdateFitnessBandState();
     }
 
+    private void InitStateMachine()
+    {
+        stateMachine = new StateMachine();
+        stateMachine.AddState<BodyTrackerCalibratingState>();
+        stateMachine.AddState<BodyTrackerPlayingState>();
+        stateMachine.AddState<BodyTrackerUncalibratedState>();
+    }
+
     private void InitBodyTrackerSampler()
     {
         bodyTrackerSampler = avatar.GetComponent<BodyTrackerSampler>();
         avatarLeftFoot = bodyTrackerSampler.bonesList[10];
         avatarRightFoot = bodyTrackerSampler.bonesList[11];
-        bodyTrackerSampler.UpdateBonesLength(avatarScale);
+        bodyTrackerSampler.UpdateBonesLength(GetAvatarScale());
     }
 
     private void InitInputSystem()
@@ -108,6 +107,11 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
         avatar.SetActive(false);
     }
 
+    private float GetAvatarScale()
+    {
+        return height / 175;
+    }
+
     private IEnumerator LoadAvatar()
     {
         InitInputSystem();
@@ -132,18 +136,31 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
         PXR_Input.SetSwiftMode(mode);
     }
 
-    public int GetConnectState()
+    private int GetConnectState()
     {
         var connectState = new PxrFitnessBandConnectState();
         PXR_Input.GetFitnessBandConnectState(ref connectState);
         return connectState.num;
     }
 
-    public int GetTrackingState()
+    private int GetTrackingState()
     {
         BodyTrackerResult bodyTrackerResult = new BodyTrackerResult();
         var trackingState = PXR_Input.GetBodyTrackingPose(0, ref bodyTrackerResult);
         return trackingState;
+    }
+
+    public bool IsStateValid()
+    {
+        var connectState = Instance().GetConnectState();
+        var trackingState = Instance().GetTrackingState();
+
+#if UNITY_EDITOR
+        connectState = 2;
+        trackingState = 0;
+#endif
+
+        return connectState == 2 && trackingState == 0;
     }
 
     public void Calibrate()
