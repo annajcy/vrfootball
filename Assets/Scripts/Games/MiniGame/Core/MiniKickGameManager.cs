@@ -126,9 +126,19 @@ public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
         UpdateGameInfo();
     }
 
-    private void Respawn()
+    public void Respawn()
+    {
+        RespawnBall();
+        RespawnGoalNet();
+    }
+
+    public void RespawnBall()
     {
         ballController.Respawn();
+    }
+
+    public void RespawnGoalNet()
+    {
         goalNetController.Respawn();
     }
 
@@ -175,7 +185,7 @@ public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
         scoreCanvas.scoreText.text = "分数：" + score;
         scoreCanvas.levelText.text = "等级：" + level;
         scoreCanvas.requiredScoreText.text = "目标分数：" + curMiniKickGameInfo.requiredScore;
-        timeCanvas.timeRemainingText.text = ((int)timeRemaining).ToString();
+        timeCanvas.timeRemainingText.text = "倒计时：" + (int)timeRemaining + "s";
     }
 
     private void OnBallScored()

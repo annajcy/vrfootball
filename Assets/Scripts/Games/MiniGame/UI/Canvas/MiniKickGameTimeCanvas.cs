@@ -11,19 +11,27 @@ public class MiniKickGameTimeCanvas : BaseCanvas
 {
     public TextMeshProUGUI timeRemainingText;
     public Button pauseButton;
+    public Button respawnButton;
 
     private void Awake()
     {
         pauseButton.onClick.AddListener(OnPauseButtonClicked);
+        respawnButton.onClick.AddListener(OnRespawnButtonClicked);
     }
 
     private void OnDestroy()
     {
         pauseButton.onClick.RemoveListener(OnPauseButtonClicked);
+        respawnButton.onClick.RemoveListener(OnRespawnButtonClicked);
     }
 
     private void OnPauseButtonClicked()
     {
         MiniKickGameManager.Instance().GetStateMachine().ChangeState<MiniKickGamePauseState>();
+    }
+
+    private void OnRespawnButtonClicked()
+    {
+        MiniKickGameManager.Instance().RespawnBall();
     }
 }
