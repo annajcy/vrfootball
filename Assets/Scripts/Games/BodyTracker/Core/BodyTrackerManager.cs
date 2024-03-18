@@ -11,7 +11,7 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
 {
     public GameObject xrOrigin;
     public GameObject avatar;
-    public float height = 175;
+    public float height = 175.0f;
 
     private static List<XRInputSubsystem> inputSubsystems = new();
     private BodyTrackerSampler bodyTrackerSampler;

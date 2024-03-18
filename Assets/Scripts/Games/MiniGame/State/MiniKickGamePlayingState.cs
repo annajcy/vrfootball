@@ -26,8 +26,5 @@ public class MiniKickGamePlayingState : BaseState
 
     }
 
-    public override void OnQuit()
-    {
-
-    }
+    public override void OnQuit() { }
 }
