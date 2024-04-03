@@ -7,8 +7,12 @@ public class StateMachine
     public StateMachine() { }
     private Dictionary<string, BaseState> stateDict = new Dictionary<string, BaseState>();
     private string nowStateName;
+    public string GetNowStateName()
+    {
+        return nowStateName;
+    }
 
-    private BaseState GetNowState()
+    public BaseState GetNowState()
     {
         if (nowStateName == null) return null;
         return stateDict[nowStateName];

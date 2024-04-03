@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class GoalNetController : MonoBehaviour
 {
-    private bool isMovementEnabled = false;
+    public bool isMovementEnabled = false;
     public Transform goalNetRespawnTransform;
     public GoalDetectController goalDetectController;
     public GoalMovement goalMovement;
@@ -28,17 +29,16 @@ public class GoalNetController : MonoBehaviour
         time += Time.deltaTime * goalMovement.speed;
         transform.position = Vector3.Lerp(start, end, time);
 
-        if (transform.position == end)
-        {
-            time = 0f;
-            index++;
-        }
+        if (transform.position != end) return;
+        time = 0f;
+        index++;
     }
 
     public void Respawn()
     {
-        transform.position = goalNetRespawnTransform.position;
-        transform.rotation = goalNetRespawnTransform.rotation;
+        var transform1 = transform;
+        transform1.position = goalNetRespawnTransform.position;
+        transform1.rotation = goalNetRespawnTransform.rotation;
     }
 
     public void EnableMovement()

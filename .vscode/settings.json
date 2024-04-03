@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "vrfootball.sln"
+    "dotnet.defaultSolution": "vrfootball.sln",
+    "dotnet.preferCSharpExtension": true
 }

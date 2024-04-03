@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CanvasSetManager : SingletonMonoGameObject<CanvasSetManager>
+public class CanvasSetManager : SingletonMonoObject<CanvasSetManager>
 {
     public List<CanvasSet> canvasSetList;
     private Dictionary<string, int> canvasSetIndexDict;

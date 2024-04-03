@@ -6,10 +6,11 @@ using System.Linq;
 using System.Security.Policy;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
+public class MiniKickGameManager : StateMachineObject<MiniKickGameManager>
 {
     public GoalNetController goalNetController;
     public BallController ballController;
@@ -20,14 +21,11 @@ public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
     private int level = 1;
     private float timeRemaining = 0f;
     private MiniKickGameInfo curMiniKickGameInfo;
-    private StateMachine stateMachine;
-    private bool isDetectScore = false;
 
     protected override void Awake()
     {
         base.Awake();
         goalNetController.goalDetectController.onBallScored.AddListener(OnBallScored);
-        InitStateMachine();
     }
 
     private void Start()
@@ -35,24 +33,13 @@ public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
         stateMachine.ChangeState<MiniKickGameQuitState>();
     }
 
-    private void Update()
-    {
-        stateMachine.UpdateState();
-    }
-
     private void OnDestroy()
     {
         goalNetController.goalDetectController.onBallScored.RemoveListener(OnBallScored);
     }
 
-    public StateMachine GetStateMachine()
+    protected override void AddStates()
     {
-        return stateMachine;
-    }
-
-    private void InitStateMachine()
-    {
-        stateMachine = new StateMachine();
         stateMachine.AddState<MiniKickGameQuitState>();
         stateMachine.AddState<MiniKickGamePauseState>();
         stateMachine.AddState<MiniKickGamePlayingState>();
@@ -61,19 +48,14 @@ public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
 
     private void EnableScoreDetection()
     {
-        isDetectScore = true;
+        goalNetController.goalDetectController.EnableBallScoreDetection();
         goalNetController.EnableMovement();
     }
 
     private void DisableScoreDetection()
     {
-        isDetectScore = false;
+        goalNetController.goalDetectController.DisableBallScoreDetection();
         goalNetController.DisableMovement();
-    }
-
-    public bool GetScoreDetectState()
-    {
-        return isDetectScore;
     }
 
     public float GetRemainingTime()
@@ -190,7 +172,6 @@ public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
 
     private void OnBallScored()
     {
-        if (!isDetectScore) return;
         score ++;
         UpdateUI();
     }
@@ -207,12 +188,9 @@ public class MiniKickGameManager : SingletonMonoGameObject<MiniKickGameManager>
     {
         levelInfoList = new List<MiniKickGameInfo>
         {
-            new MiniKickGameInfo(10, 0, 0,
-                new List<Transform>()),
-            new MiniKickGameInfo(10, 0, 1,
-                new List<Transform>()),
-            new MiniKickGameInfo(10, 0, 2,
-                new List<Transform>())
+            new MiniKickGameInfo(10, 0, 0, new List<Transform>()),
+            new MiniKickGameInfo(10, 0, 1, new List<Transform>()),
+            new MiniKickGameInfo(10, 0, 2, new List<Transform>())
         };
     }
 }

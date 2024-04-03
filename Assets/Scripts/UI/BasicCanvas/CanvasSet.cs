@@ -43,6 +43,7 @@ public class CanvasSet : MonoBehaviour
             if (state[i]) canvasList[i].Show();
             else canvasList[i].Hide();
         }
+        onShow?.Invoke();
     }
 
     public void ShowAllCanvas()

@@ -17,12 +17,16 @@ public class Kick : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.attachedRigidbody.AddForce(speed * multiplier, ForceMode.Impulse);
+        BallController ballController = other.GetComponent<BallController>();
+        if (ballController == null) return;
+        ballController.onBallKicked?.Invoke(speed);
+        ballController.ApplyForce(speed * multiplier);
     }
 
     private void Update()
     {
-        speed = (transform.position - lastPosition) / Time.deltaTime;
-        lastPosition = transform.position;
+        var position = transform.position;
+        speed = (position - lastPosition) / Time.deltaTime;
+        lastPosition = position;
     }
 }

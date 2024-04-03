@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
 
-public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
+public class BodyTrackerManager : StateMachineObject<BodyTrackerManager>
 {
     public GameObject xrOrigin;
     public GameObject avatar;
@@ -20,12 +20,10 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
     private float initXROriginY;
     private Transform avatarRightFoot;
     private Transform avatarLeftFoot;
-    private StateMachine stateMachine;
 
     protected override void Awake()
     {
         base.Awake();
-        InitStateMachine();
         initXROriginY = startXROriginY = xrOrigin.transform.localPosition.y;
     }
 
@@ -33,11 +31,6 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
     {
         InitInputSystem();
         stateMachine.ChangeState<BodyTrackerUncalibratedState>();
-    }
-
-    private void Update()
-    {
-        stateMachine.UpdateState();
     }
 
     private void OnApplicationPause(bool pauseStatus)
@@ -52,14 +45,8 @@ public class BodyTrackerManager : SingletonMonoGameObject<BodyTrackerManager>
             UpdateFitnessBandState();
     }
 
-    public StateMachine GetStateMachine()
+    protected override void AddStates()
     {
-        return stateMachine;
-    }
-
-    private void InitStateMachine()
-    {
-        stateMachine = new StateMachine();
         stateMachine.AddState<BodyTrackerCalibratingState>();
         stateMachine.AddState<BodyTrackerPlayingState>();
         stateMachine.AddState<BodyTrackerUncalibratedState>();
