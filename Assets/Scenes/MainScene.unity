@@ -17306,20 +17306,20 @@ MonoBehaviour:
   ballController: {fileID: 2603830353817109983}
   levelInfoList:
   - timeDuration: 10
-    requiredScore: 5
+    requiredScore: 1
     goalMovement:
       speed: 0
       coordinates:
       - {fileID: 1433433193}
   - timeDuration: 10
-    requiredScore: 5
+    requiredScore: 1
     goalMovement:
       speed: 1
       coordinates:
       - {fileID: 2048662090}
       - {fileID: 374152052}
   - timeDuration: 10
-    requiredScore: 5
+    requiredScore: 1
     goalMovement:
       speed: 2
       coordinates:

@@ -10,6 +10,7 @@ public class PenaltyGameQuitState : BaseState
     public override void OnEnter()
     {
         CanvasSetManager.Instance().GetCanvasSet<PenaltyGameCanvasSet>().SetState(defaultCanvasState);
+        PenaltyGameManager.Instance().goalNetController.goalDetectController.DisableBallScoreDetection();
         PenaltyGameManager.Instance().ResetInfo();
     }
 

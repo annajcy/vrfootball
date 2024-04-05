@@ -10,6 +10,7 @@ public class PenaltyGameUpgradeState : BaseState
 
     public override void OnEnter()
     {
+        PenaltyGameManager.Instance().goalNetController.goalDetectController.DisableBallScoreDetection();
         PenaltyGameManager.Instance().roundPlayed++;
         PenaltyGameManager.Instance().UpdateUI();
         CanvasSetManager.Instance().GetCanvasSet<PenaltyGameCanvasSet>().SetState(defaultCanvasState);
