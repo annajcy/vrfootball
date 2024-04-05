@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class Kick : MonoBehaviour
 {
-    private float multiplier = 0.1f;
+    private float multiplier = 1f;
     private Vector3 lastPosition;
     private Vector3 speed;
 
@@ -15,8 +15,9 @@ public class Kick : MonoBehaviour
         lastPosition = transform.position;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
+        Debug.Log(speed + "Kicked");
         BallController ballController = other.GetComponent<BallController>();
         if (ballController == null) return;
         ballController.onBallKicked?.Invoke(speed);

@@ -6,19 +6,12 @@ using UnityEngine.UI;
 
 public class BodyTrackerGameSelectCanvas : BaseCanvas
 {
+    public Button quitButton;
     public Button miniKickGameButton;
     public Button penaltyButton;
-    public Button passingButton;
-    public Button goalKeepingButton;
-    public Button freeKickButton;
-    public Button ladderTrainButton;
 
     public Transform miniKickGameTransform;
     public Transform penaltyTransform;
-    public Transform passingTransform;
-    public Transform goalKeepingTransform;
-    public Transform freeKickTransform;
-    public Transform ladderTrainTransform;
 
     public WindowFollow windowFollow;
 
@@ -26,12 +19,19 @@ public class BodyTrackerGameSelectCanvas : BaseCanvas
     {
         miniKickGameButton.onClick.AddListener(OnMiniKickGameButtonClicked);
         penaltyButton.onClick.AddListener(OnPenaltyButtonClicked);
+        quitButton.onClick.AddListener(OnQuitButtonClicked);
     }
 
     private void OnDestroy()
     {
         miniKickGameButton.onClick.RemoveListener(OnMiniKickGameButtonClicked);
         penaltyButton.onClick.RemoveListener(OnPenaltyButtonClicked);
+        quitButton.onClick.RemoveListener(OnQuitButtonClicked);
+    }
+
+    private void OnQuitButtonClicked()
+    {
+        Application.Quit();
     }
 
     private void OnMiniKickGameButtonClicked()

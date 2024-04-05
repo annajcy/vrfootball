@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class GoalDetectController : MonoBehaviour
 {
     public UnityEvent onBallScored;
-    private bool isDetectScore = false;
+    private bool isDetectScore = true;
 
     private static bool IsOnLeft(Vector3 a, Vector3 b)
     {
@@ -18,11 +18,12 @@ public class GoalDetectController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Scored");
         if (!isDetectScore) return;
         BallController ballController = other.GetComponent<BallController>();
         if (ballController == null) return;
-        if (!IsOnLeft(this.transform.forward, other.gameObject.transform.position - this.transform.position))
-            return;
+        // if (IsOnLeft(this.transform.forward, other.gameObject.transform.position - this.transform.position))
+        //     return;
         onBallScored?.Invoke();
     }
 

@@ -26,7 +26,7 @@ public class PenaltyGameGoalKeepState : BaseState
             SetState(defaultCanvasState);
         PenaltyGameManager.Instance().goalkeeperController.Hide();
         PenaltyGameManager.Instance().strikerController.Show();
-        PenaltyGameManager.Instance().ResetTimer(2.0f);
+        PenaltyGameManager.Instance().ResetTimer(5.0f);
     }
 
     public override void OnUpdate()
@@ -38,7 +38,7 @@ public class PenaltyGameGoalKeepState : BaseState
             if (!state)
             {
                 PenaltyGameManager.Instance().strikerController.SwitchPose(StrikerAction.Kick);
-                PenaltyGameManager.Instance().ResetTimer();
+                PenaltyGameManager.Instance().ResetTimer(5.0f);
                 state = true;
             }
             else PenaltyGameManager.Instance().GameUpgrade();

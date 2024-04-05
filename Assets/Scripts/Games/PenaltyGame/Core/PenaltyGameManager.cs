@@ -56,7 +56,7 @@ public class PenaltyGameManager : StateMachineObject<PenaltyGameManager>
         return kickTimer <= 0;
     }
 
-    public void ResetTimer(float time = 5.0f)
+    public void ResetTimer(float time = 10.0f)
     {
         kickTimer = time;
     }
@@ -88,6 +88,7 @@ public class PenaltyGameManager : StateMachineObject<PenaltyGameManager>
 
     private void OnBallScored()
     {
+        Debug.Log("dwdwdw");
         if (stateMachine.GetNowStateName() == "PenaltyGameKickState")
         {
             penaltyGameInfo.playerGoal();

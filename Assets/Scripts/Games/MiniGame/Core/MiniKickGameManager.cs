@@ -173,6 +173,7 @@ public class MiniKickGameManager : StateMachineObject<MiniKickGameManager>
     private void OnBallScored()
     {
         score ++;
+        RespawnBall();
         UpdateUI();
     }
 
